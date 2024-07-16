@@ -25,12 +25,6 @@ async function handleGenerateShortURL(req, res) {
   }
 }
 
-// async function handleDeleteUrl(req, res) {
-//   try {
-//     const shortId = req.params
-//   } catch (error) {}
-// }
-
 async function handleRedirectUrl(req, res) {
   const shortId = req.params.shortId;
 
@@ -57,4 +51,20 @@ async function handleGetAnalytics(req, res) {
     analytics: result.visitHistory,
   });
 }
-export { handleGenerateShortURL, handleRedirectUrl, handleGetAnalytics };
+
+async function handleDeleteUrl(req, res) {
+  try {
+    const shortId = req.params.id;
+    const result = await URL.findOneAndDelete({ shortId });
+
+    if (!result) return res.json({ message: 'failed to fetch url' });
+
+    console.log(result.redirectURL, 'successfully deleted');
+    return res.json({ message: 'Url successfully deleted', details: result });
+  } catch (error) {
+    console.error('Failed to Delete the url', error);
+    res.json({ error: 'failed to delete url' });
+    return false;
+  }
+}
+export { handleGenerateShortURL, handleRedirectUrl, handleGetAnalytics, handleDeleteUrl };
