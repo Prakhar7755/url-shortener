@@ -1,0 +1,29 @@
+{
+  "name": "4-url-shortener",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "nodemon src/app.js",
+    "format": "prettier --write \"src/**/*.js\"",
+    "check": "prettier --check \"src/**/*.js\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "ejs": "^3.1.10",
+    "express": "^4.19.2",
+    "mongoose": "^8.5.1",
+    "ssid": "^0.0.4"
+  },
+  "devDependencies": {
+    "prettier": "^3.3.3",
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  }
+}
