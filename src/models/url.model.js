@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const urlSchema = new mongoose.Schema(
   {
@@ -16,6 +16,6 @@ const urlSchema = new mongoose.Schema(
   { timestamps: true },
 );
 
-const URL = mongoose.model('url', urlSchema);
+const URL = mongoose.model("url", urlSchema);
 
 export default URL;

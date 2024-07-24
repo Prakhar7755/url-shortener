@@ -1,12 +1,11 @@
-import express from 'express';
-import connectDB from '../src/utils/connectDB.js';
-import urlRouter from './routes/url.route.js';
-import dotenv from 'dotenv';
-import path from 'path';
-import staticRoute from './routes/staticRouter.route.js';
-
-const app = express();
-const PORT = process.env.PORT || 3000;
+import express from "express";
+import dotenv from "dotenv";
+import path from "path";
+import connectDB from "./utils/connectDB.js";
+import urlRouter from "./routes/url.route.js";
+import staticRouter from "./routes/staticRouter.route.js";
+import userRouter from "./routes/user.route.js";
+import { errorHandler } from "./middlewares/errorHandler.js";
 
 // Load environment variables from .env file
 dotenv.config();
@@ -14,23 +13,22 @@ dotenv.config();
 // Connect to database
 connectDB(process.env.DB_URI);
 
-// Middlewares
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+// Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(errorHandler); // Error handling middleware
 
-// view engine
-app.set('view engine', 'ejs');
-app.set('views', path.resolve('./src/views'));
+// View engine setup
+app.set("view engine", "ejs");
+app.set("views", path.resolve("./src/views"));
 
 // Routes
-app.use('/url', urlRouter);
-app.use('/', staticRoute);
-
-// Error handling middleware
-app.use((err, req, res, next) => {
-  console.error(err);
-  res.status(500).json({ message: 'Internal Server Error' });
-});
+app.use("/url", urlRouter);
+app.use("/", staticRouter);
+app.use("/user", userRouter);
 
 // Start server
 app.listen(PORT, () => {
