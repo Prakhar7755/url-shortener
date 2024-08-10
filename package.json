@@ -13,15 +13,17 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "4-url-shortener": "file:",
+    "cookie-parser": "^1.4.6",
     "dotenv": "^16.4.5",
     "ejs": "^3.1.10",
     "express": "^4.19.2",
     "mongoose": "^8.5.1",
-    "ssid": "^0.0.4"
+    "ssid": "^0.0.4",
+    "uuid": "^10.0.0"
   },
   "devDependencies": {
-    "prettier": "^3.3.3",
-    "@types/bun": "latest"
+    "prettier": "^3.3.3"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"

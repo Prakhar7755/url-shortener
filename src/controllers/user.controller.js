@@ -1,4 +1,6 @@
 import User from "../models/user.model.js";
+import { v4 as uuidv4 } from "uuid";
+import { setUser, getUser } from "../utils/auth.js";
 
 async function handleUserSignup(req, res) {
   try {
@@ -31,10 +33,15 @@ async function handleUserLogin(req, res) {
 
     if (!user) return res.render("login", { error: "invalid email or password" });
 
+    const sessionId = uuidv4();
+
+    setUser(sessionId, user);
+    res.cookie("uid", sessionId);
+
     return res.redirect("/");
   } catch (error) {
-    console.error("User creation failed", error);
-    res.status(500).json({ error: "user creation failed" });
+    console.error("User login failed", error);
+    res.status(500).json({ error: "user login failed" });
     return false;
   }
 }

@@ -14,6 +14,7 @@ const handleGenerateShortURL = async (req, res) => {
       shortId: shortId,
       redirectURL: body.url,
       visitHistory: [],
+      createdBy:req.user._id
     });
 
     console.log("URL generated");
