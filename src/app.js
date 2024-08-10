@@ -7,7 +7,7 @@ import staticRouter from "./routes/staticRouter.route.js";
 import userRouter from "./routes/user.route.js";
 import { errorHandler } from "./middlewares/errorHandler.js";
 import cookieParser from "cookie-parser";
-import { restrictToLoggedInUserOnly, checkAuth } from "./middlewares/auth.middleware.js";
+import { checkForAuthentication, restrictTo } from "./middlewares/auth.middleware.js";
 
 // Load environment variables from .env file
 dotenv.config();
@@ -22,6 +22,7 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+app.use(checkForAuthentication);
 app.use(errorHandler); // Error handling middleware
 
 // View engine setup
@@ -29,8 +30,8 @@ app.set("view engine", "ejs");
 app.set("views", path.resolve("./src/views"));
 
 // Routes
-app.use("/url", restrictToLoggedInUserOnly, urlRouter);
-app.use("/", checkAuth, staticRouter);
+app.use("/url", restrictTo(["NORMAL"]), urlRouter);
+app.use("/", staticRouter);
 app.use("/user", userRouter);
 
 // Start server
